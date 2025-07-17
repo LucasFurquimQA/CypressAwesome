@@ -10,21 +10,21 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout código
+      - name: 🟦 Checkout do código
         uses: actions/checkout@v4
-      - name: Instalar Node
+      - name: 🟢 Configurar Node.js v20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Instalar dependências
+      - name: 📦 Instalar dependências (npm ci)
         run: npm ci
-      - name: Rodar testes Cypress com Mochawesome
+      - name: 🚦 Executar testes Cypress com Mochawesome
         run: npx cypress run --reporter mochawesome --reporter-options "reportDir=cypress/reports,overwrite=false,html=true,json=true"
-      - name: Criar pasta do relatório HTML
+      - name: 🗂️ Preparar pasta do relatório HTML
         run: mkdir -p cypress/reports/html
-      - name: Gerar relatório HTML final
+      - name: 🖼️ Gerar relatório HTML final (Marge)
         run: npx marge cypress/reports/*.json -f report -o cypress/reports/html
-      - name: Upload do relatório
+      - name: 📤 Upload do relatório Mochawesome
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-report
